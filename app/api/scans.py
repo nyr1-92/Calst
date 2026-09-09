@@ -7,6 +7,7 @@ from app.services.scan_service import ScanService
 
 router = APIRouter()
 
+# a new beginning
 
 @router.get("/scans", response_model=list[Scan])
 def get_scans():
@@ -37,3 +38,19 @@ def get_scan(scan_id: int):
             )
 
         return scan
+
+@router.delete("/scans/{scan_id}", response_model=Scan)
+def delete_scan(scan_id: int):
+    with SessionLocal() as session:
+        repository = ScanRepository(session)
+        service = ScanService(repository)
+
+        deleted = service.delete_scan(scan_id)
+
+        if deleted is False:
+            raise HTTPException(
+                status_code=404,
+                detail="Scan not found",
+            )
+
+        return True

@@ -1,16 +1,18 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
-# API schema for GET
+# API schema for POST
 
 class ScanCreate(BaseModel):
-    id: int
     food_description: str
     estimated_calories: int
     min_calories: int
     max_calories: int
     confidence: str
 
-# API schema for POST
+# API schema for GET
 
 class Scan(ScanCreate):
     id: int
+    created_at: datetime
