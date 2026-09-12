@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.api.scans import router as scans_router
 from app.api.days import router as days_router
+from app.api.analyze import router as analyze_router
 
 
 from app.database import engine
@@ -14,6 +15,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Calst API")
 app.include_router(scans_router)
 app.include_router(days_router)
+app.include_router(analyze_router)
 
 
 @app.get("/")
